@@ -1,0 +1,19 @@
+{
+  "name": "foodplanner",
+  "version": "1.0.0",
+  "description": "A food planner application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "keywords": [],
+  "author": "Lennart Granstrom",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^6.4.4",
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
+  }
+}

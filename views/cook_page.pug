@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  h1 Food planner - cook
+  h2 Ingredients 
+  select(id=`portions`, name=`portions`)
+    option(value="1") 1 portion
+    option(value="2") 2 portions
+    option(value="3") 3 portions
+    option(value="4", selected) 4 portions
+    option(value="5") 5 portions
+    option(value="6") 6 portions
+    option(value="7") 7 portions
+    option(value="8") 8 portions
+    option(value="9") 9 portions
+    option(value="10") 10 portions
+  table.table.table-striped 
+    tbody 
+      each ing in f.ingredients
+        tr 
+          td
+            span.amounts= `${ing.amount}`
+            span= ` ${ing.unit} ${ing.name}`
+  h2 Cook it
+  table.table.table-striped 
+    tbody 
+      each m in f.make
+        tr 
+          td= m
+  #default_portions.hidden= f.portions
+  script(src="/js/cook_page.js") 

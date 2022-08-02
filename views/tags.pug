@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Food planner - tags
+  table.table.table-striped 
+    thead 
+      tr 
+        th Tag 
+        th Important 
+    tbody 
+      each tag in typetags
+        tr 
+          td= tag.name
+          td
+            if tag.important
+              input(id=`${tag._id}`, type="checkbox", onclick="Update(this)", checked)
+            else
+              input(id=`${tag._id}`, type="checkbox", onclick="Update(this)")
+
+  script(src="/js/tags.js") 

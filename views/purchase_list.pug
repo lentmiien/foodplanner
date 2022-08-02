@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h1 Food planner - purchase list
+  table.table 
+    thead
+      tr 
+        each d in d_arr
+          th= d
+    tbody 
+      tr
+        each d in d_arr
+          td 
+            select(id=`portions_${d}`, name=`portions_${d}`)
+              option(value="1") 1 portion
+              option(value="2") 2 portions
+              option(value="3") 3 portions
+              option(value="4", selected) 4 portions
+              option(value="5") 5 portions
+              option(value="6") 6 portions
+              option(value="7") 7 portions
+              option(value="8") 8 portions
+              option(value="9") 9 portions
+              option(value="10") 10 portions
+  label(for="from") From 
+  select#from.form-control(name="from")
+    each d in d_arr
+      option(value=`${d}`)= d
+  label(for="to") To 
+  select#to.form-control(name="to")
+    each d in d_arr
+      option(value=`${d}`)= d
+  button.btn.btn-primary(onclick="GenerateList()") Generate list 
+  hr
+  #output
+  hr
+  button.btn.btn-primary(onclick="CopyList()") Copy
+
+  #food.hidden= JSON.stringify(food)
+  #schedule.hidden= JSON.stringify(foodSchedule)
+
+  script(src="/js/purchase_list.js") 

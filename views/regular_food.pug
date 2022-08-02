@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1 Food planner - regular food
+  table.table.table-striped 
+    thead 
+      tr 
+        th Food 
+        th Regular 
+    tbody 
+      each entry in display_list
+        tr 
+          td= entry.name
+          td
+            if entry.is_regular
+              input.boxes(id=`${entry.regular_id}`, type="checkbox", onclick=`Update(this,"${entry.food_id}")`, checked)
+            else
+              input.boxes(id=`${entry.regular_id}`, type="checkbox", onclick=`Update(this,"${entry.food_id}")`)
+
+  script(src="/js/regular_food.js") 

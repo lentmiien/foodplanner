@@ -1,0 +1,80 @@
+extends layout
+
+block content
+  h1 Food planner - add food 
+  form(action="/add_food_post", method="post") 
+    label(for="name") Food name* 
+    input#name.form-control(type="text", name="name", placeholder="Name of food...", required, list="food_names")
+    table.table.table-striped 
+      thead 
+        tr 
+          th Ingredient* 
+          th Amount 
+          th Unit 
+      tbody#ingredients
+    button.btn.btn-primary(type="button", onclick="AddIngredientRow()") Add row
+    br
+    table.table.table-striped 
+      thead 
+        tr 
+          th Step*
+      tbody#make
+    button.btn.btn-primary(type="button", onclick="AddStepRow()") Add row
+    br
+    label(for="portions") Portions*
+    input#portions.form-control(type="number", name="portions", placeholder="Number of portions...", required)
+    label(for="minutes_to_make") Time to make* (minutes)
+    input#minutes_to_make.form-control(type="number", name="minutes_to_make", placeholder="Time in minutes to make...", required)
+    div Rating
+    .form-check.form-check-inline
+      input#rating1.form-check-input(type="radio", name="rating", value="1")
+      label.form-check-label(for="rating1") Bad
+    .form-check.form-check-inline
+      input#rating2.form-check-input(type="radio", name="rating", value="2")
+      label.form-check-label(for="rating2") Not so good
+    .form-check.form-check-inline
+      input#rating3.form-check-input(type="radio", name="rating", value="3")
+      label.form-check-label(for="rating3") OK
+    .form-check.form-check-inline
+      input#rating4.form-check-input(type="radio", name="rating", value="4")
+      label.form-check-label(for="rating4") Good
+    .form-check.form-check-inline
+      input#rating5.form-check-input(type="radio", name="rating", value="5")
+      label.form-check-label(for="rating5") Excelent
+    br
+    label(for="notes") Notes
+    input#notes.form-control(type="text", name="notes", placeholder="Notes...")
+    table.table.table-striped 
+      thead 
+        tr 
+          th Tag*
+      tbody#tag
+    button.btn.btn-primary(type="button", onclick="AddTagRow()") Add row
+    br
+    label(for="image") Image link
+    input#image.form-control(type="text", name="image", placeholder="Link to image...")
+    label(for="original") Original recipe link
+    input#original.form-control(type="text", name="original", placeholder="Link to original recipe...")
+    input.btn.btn-primary(type="submit", value="Submit")
+    
+  //- id: { type: String, required: true },
+  //- name: { type: String, required: true },
+  //- ingredients: { type: Array, required: true },
+  //- make: { type: Array, required: true },
+  //- portions: { type: Number, required: true },
+  //- minutes_to_make: { type: Number, required: true },
+  //- rating: { type: Array, required: true },
+  //- notes: { type: String, required: true },
+  //- type_tags: { type: Array, required: true },
+  //- image: { type: String, required: true },
+  //- original: { type: String, required: true },
+  script(src="/js/add_food.js") 
+
+  //- typeTag tags datalist
+  datalist#tag_data
+    each t in typeTag
+      option(value=`${t.name}`)
+
+  datalist#food_names
+    each f in food
+      option(value=`${f.name}`)

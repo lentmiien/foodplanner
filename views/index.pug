@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  h1 Food planner - schedule
+  table.table.table-striped 
+    thead 
+      tr 
+        th Date 
+        th Food 
+        th Rate 
+        th Edit 
+    tbody 
+      each f, i in schedule
+        tr 
+          td= f.date
+          td(id=`cook${i}`)
+            if foodlookup[f.cook]
+              a(href=`/cook_page?id=${f.cook}`)= foodlookup[f.cook]
+          td 
+            if i < 3
+              select.rate_input(id=`rate${i}`, data-id=`${f.cook}`, data-datestr=`${f.date}`, onchange=`RateFood(this)`)
+                option
+                option(value="1") Bad
+                option(value="2") Not so good
+                option(value="3") OK
+                option(value="4") Good
+                option(value="5") Excelent
+          td 
+            if i > 1
+              select(onchange=`EditSchedule(this,${i},"${f.date}")`)
+                option
+                each food_l in food
+                  option(value=`${food_l._id}`)= food_l.name
+
+  h1 Food planner - food list
+  table.table.table-striped 
+    thead 
+      tr 
+        th Food 
+        th Tags 
+          select#tags_filter(name="tags_filter", onchange="FilterTags(this)")
+            option(value="") -- Select tag to show -- 
+            each tag in important_tags
+              option(value=`${tag}`)= tag
+        th Action
+    tbody 
+      each f in food
+        if regular_lookup.indexOf(f._id) >= 0
+          tr(data-tags=`|${f.type_tags.join('|')}|`) 
+            td
+              b= f.name
+            td= f.type_tags.join(', ')
+            td 
+              a.btn.btn-link(href=`/food_details?id=${f._id}`) Edit
+              a.btn.btn-link(href=`/cook_page?id=${f._id}`) Cook
+      each f in food
+        if regular_lookup.indexOf(f._id) == -1
+          tr(data-tags=`|${f.type_tags.join('|')}|`) 
+            td= f.name
+            td= f.type_tags.join(', ')
+            td 
+              a.btn.btn-link(href=`/food_details?id=${f._id}`) Edit
+              a.btn.btn-link(href=`/cook_page?id=${f._id}`) Cook
+  script(src="/js/index.js") 

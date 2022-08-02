@@ -1,0 +1,100 @@
+extends layout
+
+block content
+  h1 Food planner - about
+  hr
+  i 2022-08-02 - v1.0.0
+  h3 Functionality
+  ul 
+    li Add food to database (ingredients, how to make and some other details)
+    li Manage a list of regular foods (max 50 entries)
+    li Manage a food schedule 
+    li Manage a tags database 
+    li Output a purchase list 
+    li Show a page for how to cook the food 
+  h3 Data structures 
+  table.table.table-striped 
+    tr 
+      th(colspan="3") food_schedule
+    tr 
+      td _id
+      td String
+      td Unique id for entry
+    tr 
+      td food_id
+      td String
+      td Id of food to make
+    tr 
+      td date
+      td Date
+      td Date of this entry
+    tr 
+      th(colspan="3") food
+    tr 
+      td _id
+      td String
+      td Unique id for entry
+    tr 
+      td name
+      td String
+      td Name of food
+    tr 
+      td ingredients
+      td Array
+      td Ingredients array: {name, amount, unit}
+    tr 
+      td make
+      td Array
+      td Steps to make array: String
+    tr 
+      td portions
+      td Number
+      td Number of portions this recipe makes
+    tr 
+      td minutes_to_make
+      td Number
+      td Approximate time to make in minutes
+    tr 
+      td rating
+      td Array
+      td Rating array: Number
+    tr 
+      td notes
+      td String
+      td A free text comment regarding this recipe
+    tr 
+      td type_tags
+      td Array
+      td Tags array: String
+    tr 
+      td image
+      td String
+      td A link to an image of the food
+    tr 
+      td original
+      td String
+      td A link to the original recipe
+    tr 
+      th(colspan="3") regular_food
+    tr 
+      td _id
+      td String
+      td Unique id for entry
+    tr 
+      td food_id
+      td String
+      td Id of the food
+    tr 
+      th(colspan="3") type_tag
+    tr 
+      td _id
+      td String
+      td Unique id for entry
+    tr 
+      td name
+      td String
+      td Tag name
+    tr 
+      td important
+      td Boolean
+      td Non-important tags are hidden in some places

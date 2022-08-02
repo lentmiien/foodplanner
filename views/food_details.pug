@@ -1,0 +1,102 @@
+extends layout
+
+block content
+  h1 Food planner - food details / edit food
+  form(action="/food_details_post", method="post") 
+    input(id="_id", type="hidden", name="_id", value=`${f._id}`)
+    label(for="name") Food name* 
+    input#name.form-control(type="text", name="name", placeholder="Name of food...", value=`${f.name}`, required)
+    table.table.table-striped 
+      thead 
+        tr 
+          th Ingredient* 
+          th Amount 
+          th Unit 
+      tbody#ingredients
+        each ing, i in f.ingredients
+          tr 
+            td
+              input(id= `curr_ingredient${i}`, type="text", name=`curr_ingredient${i}`, style="width:100%;", value=`${ing.name}`)
+            td
+              input(id= `curr_amount${i}`, type="number", name=`curr_amount${i}`, style="width:100%;", value=`${ing.amount}`)
+            td
+              - const unit_options = ['g', 'dl', 'cc', 'tbs', 'tsp', 'unit', 'kg', 'l', 'pinch', 'cup'];
+              select(id= `curr_unit${i}`, name=`curr_unit${i}`, style="width:100%;")
+                each uoption in unit_options
+                  if uoption == ing.unit
+                    option(value=`${uoption}`, selected)= uoption
+                  else
+                    option(value=`${uoption}`)= uoption
+    button.btn.btn-primary(type="button", onclick="AddIngredientRow()") Add row
+    br
+    table.table.table-striped 
+      thead 
+        tr 
+          th Step*
+      tbody#make
+        each mk, i in f.make
+          tr 
+            td 
+              input(id= `curr_step${i}`, type="text", name=`curr_step${i}`, style="width:100%;", value=`${mk}`)
+    button.btn.btn-primary(type="button", onclick="AddStepRow()") Add row
+    br
+    label(for="portions") Portions*
+    input#portions.form-control(type="number", name="portions", placeholder="Number of portions...", value=`${f.portions}`, required)
+    label(for="minutes_to_make") Time to make* (minutes)
+    input#minutes_to_make.form-control(type="number", name="minutes_to_make", placeholder="Time in minutes to make...", value=`${f.minutes_to_make}`, required)
+    div Rating (Avg: 
+      b= rating
+      | )
+    .form-check.form-check-inline
+      input#rating1.form-check-input(type="radio", name="rating", value="1")
+      label.form-check-label(for="rating1") Bad
+    .form-check.form-check-inline
+      input#rating2.form-check-input(type="radio", name="rating", value="2")
+      label.form-check-label(for="rating2") Not so good
+    .form-check.form-check-inline
+      input#rating3.form-check-input(type="radio", name="rating", value="3")
+      label.form-check-label(for="rating3") OK
+    .form-check.form-check-inline
+      input#rating4.form-check-input(type="radio", name="rating", value="4")
+      label.form-check-label(for="rating4") Good
+    .form-check.form-check-inline
+      input#rating5.form-check-input(type="radio", name="rating", value="5")
+      label.form-check-label(for="rating5") Excelent
+    br
+    label(for="notes") Notes
+    input#notes.form-control(type="text", name="notes", placeholder="Notes...", value=`${f.notes}`)
+    table.table.table-striped 
+      thead 
+        tr 
+          th Tag*
+      tbody#tag
+        each t, i in f.type_tags
+          tr 
+            td 
+              input(id= `curr_tag${i}`, type="text", name=`curr_tag${i}`, style="width:100%;", value=`${t}`)
+    button.btn.btn-primary(type="button", onclick="AddTagRow()") Add row
+    br
+    label(for="image") Image link
+    input#image.form-control(type="text", name="image", placeholder="Link to image...", value=`${f.image}`)
+    label(for="original") Original recipe link
+    input#original.form-control(type="text", name="original", placeholder="Link to original recipe...", value=`${f.original}`)
+    textarea#json(name="json", style="width:100%;", readonly)= JSON.stringify(f)
+    input.btn.btn-primary(type="submit", value="Submit")
+    
+  //- id: { type: String, required: true },
+  //- name: { type: String, required: true },
+  //- ingredients: { type: Array, required: true },
+  //- make: { type: Array, required: true },
+  //- portions: { type: Number, required: true },
+  //- minutes_to_make: { type: Number, required: true },
+  //- rating: { type: Array, required: true },
+  //- notes: { type: String, required: true },
+  //- type_tags: { type: Array, required: true },
+  //- image: { type: String, required: true },
+  //- original: { type: String, required: true },
+  script(src="/js/add_food.js")
+
+  //- typeTag tags datalist
+  datalist#tag_data
+    each t in typeTag
+      option(value=`${t.name}`)
